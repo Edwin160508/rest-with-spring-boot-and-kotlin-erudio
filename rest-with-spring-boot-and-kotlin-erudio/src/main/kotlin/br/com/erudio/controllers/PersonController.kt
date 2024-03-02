@@ -1,6 +1,6 @@
 package br.com.erudio.controllers
 
-import br.com.erudio.model.Person
+import br.com.erudio.data.vo.v1.PersonVO
 import br.com.erudio.services.PersonService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -24,13 +24,13 @@ class PersonController {
     private lateinit var service: PersonService
     @GetMapping(
         produces = [MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE])
-    fun findAllPersons(): ResponseEntity<List<Person>> {
+    fun findAllPersons(): ResponseEntity<List<PersonVO>> {
         return ResponseEntity.ok(service.findAll())
     }
 
     @GetMapping(value = ["/{id}"],
         produces = [MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE])
-    fun findPerson(@PathVariable(value = "id") id:Long): ResponseEntity<Person> {
+    fun findPerson(@PathVariable(value = "id") id:Long): ResponseEntity<PersonVO> {
 
         return ResponseEntity.ok(service.findById(id))
     }
@@ -38,14 +38,14 @@ class PersonController {
     @PostMapping(
         consumes = [MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE])
-    fun createPerson(@RequestBody person: Person): ResponseEntity<Person> {
+    fun createPerson(@RequestBody person: PersonVO): ResponseEntity<PersonVO> {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(person))
     }
     @PutMapping(
         consumes = [MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE])
-    fun updatePerson(@RequestBody person: Person): ResponseEntity<Person> {
+    fun updatePerson(@RequestBody person: PersonVO): ResponseEntity<PersonVO> {
 
         return ResponseEntity.ok(service.update(person))
     }
