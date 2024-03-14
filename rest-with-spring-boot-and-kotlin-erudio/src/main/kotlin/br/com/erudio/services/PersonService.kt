@@ -2,6 +2,7 @@ package br.com.erudio.services
 
 import br.com.erudio.controllers.PersonController
 import br.com.erudio.data.vo.v1.PersonVO
+import br.com.erudio.exceptions.RequiredObjectIsNullException
 import br.com.erudio.exceptions.ResourceNotFoundException
 import br.com.erudio.mapper.DozerMapper
 import br.com.erudio.model.Person
@@ -37,17 +38,19 @@ class PersonService {
         return personVO
     }
 
-    fun create(person: PersonVO): PersonVO{
-        logger.info("Create one person with name ${person.firstName}.")
-        //Criar logica para salvar passando por validacoes
-        val entity = DozerMapper.parseObject(person, Person::class.java)
-
+    fun create(person: PersonVO?): PersonVO{
+        if (person == null) throw RequiredObjectIsNullException()
+        logger.info("Creating one person with name ${person.firstName}!")
+        var entity: Person = DozerMapper.parseObject(person, Person::class.java)
         val personVO: PersonVO = DozerMapper.parseObject(repository.save(entity), PersonVO::class.java)
         addSelfRefHateoas(personVO)
         return personVO
+
     }
 
-    fun update(person: PersonVO): PersonVO{
+    fun update(person: PersonVO?): PersonVO{
+
+        if (person == null) throw RequiredObjectIsNullException()
         logger.info("Update a person, by ID ${person.key}.")
         val entity = repository.findById(person.key).orElseThrow{ResourceNotFoundException("No records found for this ID!")}
         //Criar logica para update passando por validacoes
