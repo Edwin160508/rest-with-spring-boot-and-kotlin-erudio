@@ -1,8 +1,7 @@
 package br.com.erudio.services
 
-import br.com.erudio.controllers.PersonController
+import br.com.erudio.controllers.BookController
 import br.com.erudio.data.vo.v1.BookVO
-import br.com.erudio.data.vo.v1.PersonVO
 import br.com.erudio.exceptions.RequiredObjectIsNullException
 import br.com.erudio.exceptions.ResourceNotFoundException
 import br.com.erudio.mapper.DozerMapper
@@ -73,7 +72,7 @@ class BookService {
     }
 
     private fun addSelfRefHateoas(bookVO: BookVO){
-        val withSelfRef = WebMvcLinkBuilder.linkTo(PersonController::class.java).slash(bookVO.key)
+        val withSelfRef = WebMvcLinkBuilder.linkTo(BookController::class.java).slash(bookVO.key)
             .withSelfRel()
         bookVO.add(withSelfRef)
     }
