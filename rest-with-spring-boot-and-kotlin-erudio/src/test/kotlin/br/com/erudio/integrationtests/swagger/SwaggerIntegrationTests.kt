@@ -1,6 +1,6 @@
 package br.com.erudio.integrationtests.swagger
 
-import br.com.erudio.integrationtests.ConfigTests
+import br.com.erudio.integrationtests.TestConfigs
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest
 import io.restassured.RestAssured.given
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -14,7 +14,7 @@ class SwaggerIntegrationTests(): AbstractIntegrationTest() {
 //	fun shoudDisplaySwaggerUiPage() {
 //		val content = given()
 //			.basePath("/swagger-ui/index.html")
-//			.port(ConfigTests.SERVER_PORT)
+//			.port(TestConfigs.SERVER_PORT)
 //				.`when`()
 //			.get()
 //			.then()
