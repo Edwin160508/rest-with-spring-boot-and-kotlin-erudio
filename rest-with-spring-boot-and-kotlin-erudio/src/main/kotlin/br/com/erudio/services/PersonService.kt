@@ -10,6 +10,7 @@ import br.com.erudio.repositories.PersonRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.util.logging.Logger
 
 @Service
@@ -68,6 +69,16 @@ class PersonService {
         logger.info("Delete a person by $id.")
         val entity = repository.findById(id).orElseThrow{ResourceNotFoundException("No records found for this ID!")}
         repository.delete(entity)
+    }
+
+    @Transactional
+    fun desablePerson(id: Long):PersonVO{
+        logger.info("Disabling one person with ID $id!")
+        repository.disablePerson(id)
+        val entity = repository.findById(id).orElseThrow{ResourceNotFoundException("No records found for this ID!")}
+        var personVO = DozerMapper.parseObject(entity, PersonVO::class.java)
+        addSelfRefHateoas(personVO)
+        return personVO
     }
 
     private fun addSelfRefHateoas(personVO: PersonVO){
