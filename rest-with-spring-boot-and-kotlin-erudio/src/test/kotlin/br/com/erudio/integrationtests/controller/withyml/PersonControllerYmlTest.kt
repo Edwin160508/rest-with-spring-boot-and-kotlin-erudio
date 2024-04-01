@@ -156,6 +156,36 @@ class PersonControllerYmlTest : AbstractIntegrationTest() {
 
 //    @Test
 //    @Order(3)
+    fun testDisablePersonById() {
+        val item = given()
+            .spec(specification)
+            .contentType(TestConfigs.CONTENT_TYPE_YML)
+            .pathParam("id", person.id)
+            .`when`()
+            .patch("{id}")
+            .then()
+            .statusCode(200)
+            .extract()
+            .body()
+            .`as`(PersonVO::class.java, objectMapper)
+
+        person = item
+
+        assertNotNull(item.id)
+        assertNotNull(item.firstName)
+        assertNotNull(item.lastName)
+        assertNotNull(item.address)
+        assertNotNull(item.gender)
+        assertEquals(person.id, item.id)
+        assertEquals("Richard", item.firstName)
+        assertEquals("Matthew Stallman", item.lastName)
+        assertEquals("New York City, New York, US", item.address)
+        assertEquals("Male", item.gender)
+        assertEquals(false, item.enabled)
+    }
+
+//    @Test
+//    @Order(4)
     fun testFindById() {
         val item = given()
             .config(
@@ -192,7 +222,7 @@ class PersonControllerYmlTest : AbstractIntegrationTest() {
     }
 
 //    @Test
-//    @Order(4)
+//    @Order(5)
     fun testDelete() {
         given()
             .spec(specification)
@@ -204,7 +234,7 @@ class PersonControllerYmlTest : AbstractIntegrationTest() {
     }
 
 //    @Test
-//    @Order(5)
+//    @Order(6)
     fun testFindAll() {
         val people = given()
             .config(
@@ -252,7 +282,7 @@ class PersonControllerYmlTest : AbstractIntegrationTest() {
 
 
 //    @Test
-//    @Order(5)
+//    @Order(7)
     fun testFindAllWithoutToken() {
 
         val specificationWithoutToken: RequestSpecification = RequestSpecBuilder()
