@@ -18,7 +18,7 @@ open class AbstractIntegrationTest {
 
             val environment = applicationContext.environment
             val testConteiners = MapPropertySource(
-                "testConteiners", createConnectionConfiguration()
+                "testContainers", createConnectionConfiguration()
             )
             environment.propertySources.addFirst(testConteiners)
         }
