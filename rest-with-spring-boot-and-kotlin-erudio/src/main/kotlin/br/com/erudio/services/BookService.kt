@@ -8,6 +8,10 @@ import br.com.erudio.mapper.DozerMapper
 import br.com.erudio.model.Book
 import br.com.erudio.repositories.BookRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PagedResourcesAssembler
+import org.springframework.hateoas.EntityModel
+import org.springframework.hateoas.PagedModel
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder
 import org.springframework.stereotype.Service
 import java.util.logging.Logger
@@ -18,16 +22,21 @@ class BookService {
     @Autowired
     private lateinit var repository: BookRepository
 
-    private val logger = Logger.getLogger(BookService::class.java.name)
+    @Autowired
+    private lateinit var assembler: PagedResourcesAssembler<BookVO>
 
-    fun findAll():List<BookVO>{
+            private
+    val logger = Logger.getLogger(BookService::class.java.name)
+
+    fun findAll(pageable: Pageable):PagedModel<EntityModel<BookVO>>{
         logger.info("Finding all books.")
-        val books: MutableList<Book> = repository.findAll();
-        val vos = DozerMapper.parseListObjects(books, BookVO::class.java)
-        for(book in vos){
-            addSelfRefHateoas(book)
-        }
-        return vos
+        val books = repository.findAll(pageable);
+        val vos = books.map { b -> DozerMapper.parseObject(b, BookVO::class.java) }
+        vos.map { b -> addSelfRefHateoas(b) }
+//        for(book in vos){
+//            addSelfRefHateoas(book)
+//        }
+        return assembler.toModel(vos)
     }
     fun findById(id:Long): BookVO {
         logger.info("Finding a book.by id ${id}.")

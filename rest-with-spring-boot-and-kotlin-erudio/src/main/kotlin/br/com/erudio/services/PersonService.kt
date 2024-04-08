@@ -8,6 +8,10 @@ import br.com.erudio.mapper.DozerMapper
 import br.com.erudio.model.Person
 import br.com.erudio.repositories.PersonRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PagedResourcesAssembler
+import org.springframework.hateoas.EntityModel
+import org.springframework.hateoas.PagedModel
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -20,14 +24,19 @@ class PersonService {
     @Autowired
     private lateinit var repository: PersonRepository
 
-    fun findAll():List<PersonVO>{
+    @Autowired
+    private lateinit var assembler: PagedResourcesAssembler<PersonVO>
+
+    fun findAll(pageable: Pageable):PagedModel<EntityModel<PersonVO>>{
         logger.info("Finding all persons.")
-        val persons: MutableList<Person> = repository.findAll();
-        val vos = DozerMapper.parseListObjects(persons, PersonVO::class.java)
-        for(person in vos){
-            addSelfRefHateoas(person)
-        }
-        return vos
+        val persons = repository.findAll(pageable);
+        //val vos = DozerMapper.parseListObjects(persons, PersonVO::class.java)
+        val vos = persons.map { p -> DozerMapper.parseObject(p, PersonVO::class.java) }
+        vos.map { p -> addSelfRefHateoas(p) }
+//        for(person in vos){
+//            addSelfRefHateoas(person)
+//        }
+        return  assembler.toModel(vos)
     }
     fun findById(id:Long): PersonVO{
         logger.info("Finding a person.by id ${id}.")
