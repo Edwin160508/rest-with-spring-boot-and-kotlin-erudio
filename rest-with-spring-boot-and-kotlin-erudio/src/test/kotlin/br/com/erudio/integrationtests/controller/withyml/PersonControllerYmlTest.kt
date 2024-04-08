@@ -6,6 +6,7 @@ import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest
 import br.com.erudio.integrationtests.vo.AccountCredentialsVO
 import br.com.erudio.integrationtests.vo.PersonVO
 import br.com.erudio.integrationtests.vo.TokenVO
+import br.com.erudio.integrationtests.vo.wrappers.WrapperPersonVO
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.restassured.RestAssured
@@ -235,50 +236,58 @@ class PersonControllerYmlTest : AbstractIntegrationTest() {
 
 //    @Test
 //    @Order(6)
-    fun testFindAll() {
-        val people = given()
-            .config(
-                RestAssuredConfig
-                    .config()
-                    .encoderConfig(
-                        EncoderConfig.encoderConfig()
-                            .encodeContentTypeAs(TestConfigs.CONTENT_TYPE_YML, ContentType.TEXT)
-                    )
-            )
-            .spec(specification)
-            .contentType(TestConfigs.CONTENT_TYPE_YML)
-            .`when`()
-            .get()
-            .then()
-            .statusCode(200)
-            .extract()
-            .body()
-            .`as`(Array<PersonVO>::class.java, objectMapper)
+fun testFindAll() {
+    val wrapper = given()
+        .config(
+            RestAssuredConfig
+                .config()
+                .encoderConfig(
+                    EncoderConfig.encoderConfig()
+                        .encodeContentTypeAs(TestConfigs.CONTENT_TYPE_YML, ContentType.TEXT)
+                )
+        )
+        .spec(specification)
+        .contentType(TestConfigs.CONTENT_TYPE_YML)
+        .queryParams(
+            "page", 3,
+            "size",12,
+            "direction", "asc")
+        .`when`()
+        .get()
+        .then()
+        .statusCode(200)
+        .extract()
+        .body()
+        .`as`(WrapperPersonVO::class.java, objectMapper)
 
-        val item1 = people[0]
+    val people = wrapper.embedded!!.persons
 
-        assertNotNull(item1.id)
-        assertNotNull(item1.firstName)
-        assertNotNull(item1.lastName)
-        assertNotNull(item1.address)
-        assertNotNull(item1.gender)
-        assertEquals("Ayrton", item1.firstName)
-        assertEquals("Senna", item1.lastName)
-        assertEquals("São Paulo", item1.address)
-        assertEquals("Male", item1.gender)
+    val item1 = people?.get(0)
 
-        val item2 = people[6]
+    assertNotNull(item1!!.id)
+    assertNotNull(item1.firstName)
+    assertNotNull(item1.lastName)
+    assertNotNull(item1.address)
+    assertNotNull(item1.gender)
+    assertEquals("Allin", item1.firstName)
+    assertEquals("Otridge", item1.lastName)
+    assertEquals("09846 Independence Center", item1.address)
+    assertEquals("Male", item1.gender)
+    assertEquals(false, item1.enabled)
 
-        assertNotNull(item2.id)
-        assertNotNull(item2.firstName)
-        assertNotNull(item2.lastName)
-        assertNotNull(item2.address)
-        assertNotNull(item2.gender)
-        assertEquals("Nikola", item2.firstName)
-        assertEquals("Tesla", item2.lastName)
-        assertEquals("Smiljan - Croatia", item2.address)
-        assertEquals("Male", item2.gender)
-    }
+    val item2 = people[6]
+
+    assertNotNull(item2.id)
+    assertNotNull(item2.firstName)
+    assertNotNull(item2.lastName)
+    assertNotNull(item2.address)
+    assertNotNull(item2.gender)
+    assertEquals("Alvera", item2.firstName)
+    assertEquals("MacMillan", item2.lastName)
+    assertEquals("59929 Loeprich Place", item2.address)
+    assertEquals("Female", item2.gender)
+    assertEquals(false, item2.enabled)
+}
 
 
 //    @Test

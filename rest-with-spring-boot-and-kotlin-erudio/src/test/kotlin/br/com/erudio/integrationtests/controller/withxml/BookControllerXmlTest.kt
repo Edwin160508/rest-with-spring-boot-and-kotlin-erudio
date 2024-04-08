@@ -5,15 +5,19 @@ import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest
 import br.com.erudio.integrationtests.vo.AccountCredentialsVO
 import br.com.erudio.integrationtests.vo.BookVO
 import br.com.erudio.integrationtests.vo.TokenVO
+import br.com.erudio.integrationtests.vo.wrappers.WrapperBookVO
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.restassured.RestAssured.given
 import io.restassured.builder.RequestSpecBuilder
+import io.restassured.config.EncoderConfig
+import io.restassured.config.RestAssuredConfig
 import io.restassured.filter.log.LogDetail
 import io.restassured.filter.log.RequestLoggingFilter
 import io.restassured.filter.log.ResponseLoggingFilter
+import io.restassured.http.ContentType
 import io.restassured.specification.RequestSpecification
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
@@ -159,9 +163,64 @@ class BookControllerXmlTest : AbstractIntegrationTest() {
 //    @Test
 //    @Order(6)
 //    @Throws(JsonMappingException::class, JsonProcessingException::class)
-    fun testFindAll() {
-        val strContent = given().spec(specification)
-            .contentType(TestConfigs.CONTENT_TYPE_XML)
+fun testFindAll() {
+    val strContent = given().spec(specification)
+        .contentType(TestConfigs.CONTENT_TYPE_XML)
+        .queryParams(
+            "page", 0,
+            "size", 12,
+            "direction", "asc")
+        .`when`()
+        .get()
+        .then()
+        .statusCode(200)
+        .extract()
+        .body()
+        .asString()
+
+    val wrapper = objectMapper.readValue(strContent, WrapperBookVO::class.java)
+    val content = wrapper.embedded!!.books
+
+    val foundBookOne = content?.get(0)
+
+    assertNotNull(foundBookOne!!.id)
+    assertNotNull(foundBookOne.title)
+    assertNotNull(foundBookOne.author)
+    assertNotNull(foundBookOne.price)
+    assertTrue(foundBookOne.id > 0)
+    assertEquals("Big Data: como extrair volume, variedade, velocidade e valor da avalanche de informação cotidiana", foundBookOne.title)
+    assertEquals("Viktor Mayer-Schonberger e Kenneth Kukier", foundBookOne.author)
+    assertEquals(54.00, foundBookOne.price)
+
+    val foundBookFive: BookVO? = content?.get(4)
+
+    assertNotNull(foundBookFive!!.id)
+    assertNotNull(foundBookFive.title)
+    assertNotNull(foundBookFive.author)
+    assertNotNull(foundBookFive.price)
+    assertTrue(foundBookFive.id > 0)
+    assertEquals("Domain Driven Design", foundBookFive.title)
+    assertEquals("Eric Evans", foundBookFive.author)
+    assertEquals(92.0, foundBookFive.price)
+}
+//    @Test
+//    @Order(7)
+    fun testHATEOAS() {
+        val content = given()
+            .config(
+                RestAssuredConfig
+                    .config()
+                    .encoderConfig(
+                        EncoderConfig.encoderConfig()
+                            .encodeContentTypeAs(TestConfigs.CONTENT_TYPE_YML, ContentType.TEXT)
+                    )
+            )
+            .spec(specification)
+            .contentType(TestConfigs.CONTENT_TYPE_YML)
+            .queryParams(
+                "page", 0,
+                "size", 12,
+                "direction", "asc")
             .`when`()
             .get()
             .then()
@@ -170,28 +229,14 @@ class BookControllerXmlTest : AbstractIntegrationTest() {
             .body()
             .asString()
 
-        val content = objectMapper!!.readValue(strContent, Array<BookVO>::class.java)
+        assertTrue(content.contains(""""_links":{"self":{"href":"http://localhost:8888/api/book/v1/12"}}}"""))
+        assertTrue(content.contains(""""_links":{"self":{"href":"http://localhost:8888/api/book/v1/3"}}}"""))
+        assertTrue(content.contains(""""_links":{"self":{"href":"http://localhost:8888/api/book/v1/5"}}}"""))
 
-        val foundBookOne: BookVO? = content?.get(0)
-
-        assertNotNull(foundBookOne!!.id)
-        assertNotNull(foundBookOne.title)
-        assertNotNull(foundBookOne.author)
-        assertNotNull(foundBookOne.price)
-        assertTrue(foundBookOne.id > 0)
-        assertEquals("Working effectively with legacy code", foundBookOne.title)
-        assertEquals("Michael C. Feathers", foundBookOne.author)
-        assertEquals(49.00, foundBookOne.price)
-
-        val foundBookFive: BookVO? = content?.get(4)
-        assertNotNull(foundBookFive!!.id)
-        assertNotNull(foundBookFive.title)
-        assertNotNull(foundBookFive.author)
-        assertNotNull(foundBookFive.price)
-        assertTrue(foundBookFive.id > 0)
-        assertEquals("Code complete", foundBookFive.title)
-        assertEquals("Steve McConnell", foundBookFive.author)
-        assertEquals(58.0, foundBookFive.price)
+        assertTrue(content.contains(""""first":{"href":"http://localhost:8888/api/book/v1?direction=asc&page=0&size=12&sort=title,asc"}"""))
+        assertTrue(content.contains(""""self":{"href":"http://localhost:8888/api/book/v1?direction=asc&page=0&size=12&sort=title,asc"}"""))
+        assertTrue(content.contains(""""next":{"href":"http://localhost:8888/api/book/v1?direction=asc&page=1&size=12&sort=title,asc"}"""))
+        assertTrue(content.contains(""""last":{"href":"http://localhost:8888/api/book/v1?direction=asc&page=1&size=12&sort=title,asc"}"""))
     }
 
     private fun mockBook() {
