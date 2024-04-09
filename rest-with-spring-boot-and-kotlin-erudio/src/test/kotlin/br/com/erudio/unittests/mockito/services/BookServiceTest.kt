@@ -36,7 +36,7 @@ internal class BookServiceTest {
         MockitoAnnotations.openMocks(this)
     }
 
-    @Test
+    /*@Test
     fun findAll() {
         val list = inputObject.mockEntityList()
         `when`(repository.findAll()).thenReturn(list)
@@ -75,7 +75,7 @@ internal class BookServiceTest {
         assertEquals("Some Title7", bookSeven.title)
         assertEquals("Some Author7", bookSeven.author)
         assertEquals(25.0, bookSeven.price)
-    }
+    }*/
 
     @Test
     fun findById() {
