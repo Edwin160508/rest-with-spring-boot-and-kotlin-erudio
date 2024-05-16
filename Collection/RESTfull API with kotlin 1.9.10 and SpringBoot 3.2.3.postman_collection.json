@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "589bc5d1-7cb7-4b04-9024-7dfac313f7d9",
+		"_postman_id": "d05e2bea-0144-43f0-98d6-e8711b7782cb",
 		"name": "RESTfull API with kotlin 1.9.10 and SpringBoot 3.2.3",
 		"description": "Sample API example in kotlin",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -96,22 +96,6 @@
 					"item": [
 						{
 							"name": "Authenticates an user and return a token",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"if(responseCode.code >= 200 && responseCode.code <= 299 ){\r",
-											"    var jsonData = JSON.parse(responseBody);\r",
-											"\r",
-											"    postman.setEnvironmentVariable(\"accessToken\", jsonData.accessToken);\r",
-											"    postman.setEnvironmentVariable(\"refreshToken\", jsonData.refreshToken);\r",
-											"}"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
 							"request": {
 								"method": "POST",
 								"header": [
@@ -126,7 +110,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"username\": \"{{username}}\",\n  \"password\": \"{{password}}\"\n}",
+									"raw": "{\n  \"username\": \"{{username}}\",\n  \"password\": \"<string>\"\n}",
 									"options": {
 										"raw": {
 											"headerFamily": "json",
@@ -222,8 +206,7 @@
 													},
 													{
 														"key": "Authorization",
-														"value": "Bearer {{accessToken}}",
-														"type": "text"
+														"value": "Bearer {{accessToken}}"
 													}
 												],
 												"url": {
@@ -279,279 +262,7 @@
 														}
 													],
 													"cookie": [],
-													"body": "{\n  \"address\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"incf\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam_0c\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}"
-												},
-												{
-													"name": "No Content",
-													"originalRequest": {
-														"method": "GET",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/person/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"person",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "No Content",
-													"code": 204,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												},
-												{
-													"name": "Bad Request",
-													"originalRequest": {
-														"method": "GET",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/person/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"person",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "Bad Request",
-													"code": 400,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												},
-												{
-													"name": "Unauthorized",
-													"originalRequest": {
-														"method": "GET",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/person/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"person",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "Unauthorized",
-													"code": 401,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												},
-												{
-													"name": "Not Found",
-													"originalRequest": {
-														"method": "GET",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/person/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"person",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "Not Found",
-													"code": 404,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												},
-												{
-													"name": "Internal Error",
-													"originalRequest": {
-														"method": "GET",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/person/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"person",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "Internal Server Error",
-													"code": 500,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												}
-											]
-										},
-										{
-											"name": "Desable a Person",
-											"request": {
-												"method": "PATCH",
-												"header": [
-													{
-														"key": "Accept",
-														"value": "application/json"
-													},
-													{
-														"key": "Authorization",
-														"value": "Bearer {{accessToken}}",
-														"type": "text"
-													}
-												],
-												"url": {
-													"raw": "{{baseUrl}}/api/person/v1/12",
-													"host": [
-														"{{baseUrl}}"
-													],
-													"path": [
-														"api",
-														"person",
-														"v1",
-														"12"
-													]
-												},
-												"description": "Finds a Person"
-											},
-											"response": [
-												{
-													"name": "Success",
-													"originalRequest": {
-														"method": "GET",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/person/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"person",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "OK",
-													"code": 200,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{\n  \"address\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"incf\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam_0c\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}"
+													"body": "{\n  \"address\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"none5_\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam964\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}"
 												},
 												{
 													"name": "No Content",
@@ -766,12 +477,11 @@
 													},
 													{
 														"key": "Authorization",
-														"value": "Bearer {{accessToken}}",
-														"type": "text"
+														"value": "Bearer {{accessToken}}"
 													}
 												],
 												"url": {
-													"raw": "{{baseUrl}}/api/person/v1/30",
+													"raw": "{{baseUrl}}/api/person/v1/:id",
 													"host": [
 														"{{baseUrl}}"
 													],
@@ -779,7 +489,14 @@
 														"api",
 														"person",
 														"v1",
-														"30"
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
 													]
 												},
 												"description": "Delete a person"
@@ -823,7 +540,7 @@
 														}
 													],
 													"cookie": [],
-													"body": "{\n  \"address\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"incf\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam_0c\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}"
+													"body": "{\n  \"address\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"none5_\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam964\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}"
 												},
 												{
 													"name": "No Content",
@@ -1026,6 +743,284 @@
 													"body": "{}"
 												}
 											]
+										},
+										{
+											"name": "Disable a Person",
+											"request": {
+												"method": "PATCH",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"key": "Authorization",
+														"value": "Bearer {{accessToken}}"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/person/v1/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"person",
+														"v1",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												},
+												"description": "Disable a Person"
+											},
+											"response": [
+												{
+													"name": "Success",
+													"originalRequest": {
+														"method": "PATCH",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/person/v1/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"person",
+																"v1",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"address\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"none5_\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam964\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}"
+												},
+												{
+													"name": "No Content",
+													"originalRequest": {
+														"method": "PATCH",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/person/v1/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"person",
+																"v1",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "No Content",
+													"code": 204,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{}"
+												},
+												{
+													"name": "Bad Request",
+													"originalRequest": {
+														"method": "PATCH",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/person/v1/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"person",
+																"v1",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "Bad Request",
+													"code": 400,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{}"
+												},
+												{
+													"name": "Unauthorized",
+													"originalRequest": {
+														"method": "PATCH",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/person/v1/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"person",
+																"v1",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "Unauthorized",
+													"code": 401,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{}"
+												},
+												{
+													"name": "Not Found",
+													"originalRequest": {
+														"method": "PATCH",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/person/v1/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"person",
+																"v1",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "Not Found",
+													"code": 404,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{}"
+												},
+												{
+													"name": "Internal Error",
+													"originalRequest": {
+														"method": "PATCH",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/person/v1/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"person",
+																"v1",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "Internal Server Error",
+													"code": 500,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{}"
+												}
+											]
 										}
 									]
 								},
@@ -1040,12 +1035,11 @@
 											},
 											{
 												"key": "Authorization",
-												"value": "Bearer {{accessToken}}",
-												"type": "text"
+												"value": "Bearer {{accessToken}}"
 											}
 										],
 										"url": {
-											"raw": "{{baseUrl}}/api/person/v1",
+											"raw": "{{baseUrl}}/api/person/v1?page=0&size=12&direction=asc",
 											"host": [
 												"{{baseUrl}}"
 											],
@@ -1053,6 +1047,20 @@
 												"api",
 												"person",
 												"v1"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "0"
+												},
+												{
+													"key": "size",
+													"value": "12"
+												},
+												{
+													"key": "direction",
+													"value": "asc"
+												}
 											]
 										},
 										"description": "Finds all Persons"
@@ -1069,7 +1077,7 @@
 													}
 												],
 												"url": {
-													"raw": "{{baseUrl}}/api/person/v1",
+													"raw": "{{baseUrl}}/api/person/v1?page=0&size=12&direction=asc",
 													"host": [
 														"{{baseUrl}}"
 													],
@@ -1077,6 +1085,20 @@
 														"api",
 														"person",
 														"v1"
+													],
+													"query": [
+														{
+															"key": "page",
+															"value": "0"
+														},
+														{
+															"key": "size",
+															"value": "12"
+														},
+														{
+															"key": "direction",
+															"value": "asc"
+														}
 													]
 												}
 											},
@@ -1090,7 +1112,7 @@
 												}
 											],
 											"cookie": [],
-											"body": "[\n  {\n    \"address\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"gender\": \"<string>\",\n    \"id\": \"<long>\",\n    \"lastName\": \"<string>\",\n    \"_links\": {\n      \"est_ccf\": {\n        \"href\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"deprecation\": \"<string>\",\n        \"profile\": \"<string>\",\n        \"name\": \"<string>\",\n        \"templated\": \"<boolean>\"\n      },\n      \"nulla72\": {\n        \"href\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"deprecation\": \"<string>\",\n        \"profile\": \"<string>\",\n        \"name\": \"<string>\",\n        \"templated\": \"<boolean>\"\n      },\n      \"ut_c\": {\n        \"href\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"deprecation\": \"<string>\",\n        \"profile\": \"<string>\",\n        \"name\": \"<string>\",\n        \"templated\": \"<boolean>\"\n      }\n    }\n  },\n  {\n    \"address\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"gender\": \"<string>\",\n    \"id\": \"<long>\",\n    \"lastName\": \"<string>\",\n    \"_links\": {\n      \"incididunteea\": {\n        \"href\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"deprecation\": \"<string>\",\n        \"profile\": \"<string>\",\n        \"name\": \"<string>\",\n        \"templated\": \"<boolean>\"\n      }\n    }\n  }\n]"
+											"body": "[\n  {\n    \"address\": \"<string>\",\n    \"enabled\": \"<boolean>\",\n    \"firstName\": \"<string>\",\n    \"gender\": \"<string>\",\n    \"id\": \"<long>\",\n    \"lastName\": \"<string>\",\n    \"_links\": {\n      \"ea_4\": {\n        \"href\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"deprecation\": \"<string>\",\n        \"profile\": \"<string>\",\n        \"name\": \"<string>\",\n        \"templated\": \"<boolean>\"\n      },\n      \"proident_3_7\": {\n        \"href\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"deprecation\": \"<string>\",\n        \"profile\": \"<string>\",\n        \"name\": \"<string>\",\n        \"templated\": \"<boolean>\"\n      }\n    }\n  },\n  {\n    \"address\": \"<string>\",\n    \"enabled\": \"<boolean>\",\n    \"firstName\": \"<string>\",\n    \"gender\": \"<string>\",\n    \"id\": \"<long>\",\n    \"lastName\": \"<string>\",\n    \"_links\": {\n      \"et_231\": {\n        \"href\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"deprecation\": \"<string>\",\n        \"profile\": \"<string>\",\n        \"name\": \"<string>\",\n        \"templated\": \"<boolean>\"\n      },\n      \"veniamf45\": {\n        \"href\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"deprecation\": \"<string>\",\n        \"profile\": \"<string>\",\n        \"name\": \"<string>\",\n        \"templated\": \"<boolean>\"\n      }\n    }\n  }\n]"
 										},
 										{
 											"name": "No Content",
@@ -1103,7 +1125,7 @@
 													}
 												],
 												"url": {
-													"raw": "{{baseUrl}}/api/person/v1",
+													"raw": "{{baseUrl}}/api/person/v1?page=0&size=12&direction=asc",
 													"host": [
 														"{{baseUrl}}"
 													],
@@ -1111,6 +1133,20 @@
 														"api",
 														"person",
 														"v1"
+													],
+													"query": [
+														{
+															"key": "page",
+															"value": "0"
+														},
+														{
+															"key": "size",
+															"value": "12"
+														},
+														{
+															"key": "direction",
+															"value": "asc"
+														}
 													]
 												}
 											},
@@ -1137,7 +1173,7 @@
 													}
 												],
 												"url": {
-													"raw": "{{baseUrl}}/api/person/v1",
+													"raw": "{{baseUrl}}/api/person/v1?page=0&size=12&direction=asc",
 													"host": [
 														"{{baseUrl}}"
 													],
@@ -1145,6 +1181,20 @@
 														"api",
 														"person",
 														"v1"
+													],
+													"query": [
+														{
+															"key": "page",
+															"value": "0"
+														},
+														{
+															"key": "size",
+															"value": "12"
+														},
+														{
+															"key": "direction",
+															"value": "asc"
+														}
 													]
 												}
 											},
@@ -1171,7 +1221,7 @@
 													}
 												],
 												"url": {
-													"raw": "{{baseUrl}}/api/person/v1",
+													"raw": "{{baseUrl}}/api/person/v1?page=0&size=12&direction=asc",
 													"host": [
 														"{{baseUrl}}"
 													],
@@ -1179,6 +1229,20 @@
 														"api",
 														"person",
 														"v1"
+													],
+													"query": [
+														{
+															"key": "page",
+															"value": "0"
+														},
+														{
+															"key": "size",
+															"value": "12"
+														},
+														{
+															"key": "direction",
+															"value": "asc"
+														}
 													]
 												}
 											},
@@ -1205,7 +1269,7 @@
 													}
 												],
 												"url": {
-													"raw": "{{baseUrl}}/api/person/v1",
+													"raw": "{{baseUrl}}/api/person/v1?page=0&size=12&direction=asc",
 													"host": [
 														"{{baseUrl}}"
 													],
@@ -1213,6 +1277,20 @@
 														"api",
 														"person",
 														"v1"
+													],
+													"query": [
+														{
+															"key": "page",
+															"value": "0"
+														},
+														{
+															"key": "size",
+															"value": "12"
+														},
+														{
+															"key": "direction",
+															"value": "asc"
+														}
 													]
 												}
 											},
@@ -1239,7 +1317,7 @@
 													}
 												],
 												"url": {
-													"raw": "{{baseUrl}}/api/person/v1",
+													"raw": "{{baseUrl}}/api/person/v1?page=0&size=12&direction=asc",
 													"host": [
 														"{{baseUrl}}"
 													],
@@ -1247,6 +1325,20 @@
 														"api",
 														"person",
 														"v1"
+													],
+													"query": [
+														{
+															"key": "page",
+															"value": "0"
+														},
+														{
+															"key": "size",
+															"value": "12"
+														},
+														{
+															"key": "direction",
+															"value": "asc"
+														}
 													]
 												}
 											},
@@ -1279,13 +1371,12 @@
 											},
 											{
 												"key": "Authorization",
-												"value": "Bearer {{accessToken}}",
-												"type": "text"
+												"value": "Bearer {{accessToken}}"
 											}
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"address\": \"Rio de Janeiro - Rio de Janeiro - BR\",\n  \"firstName\": \"Antônio\",\n  \"gender\": \"Male\",\n  \"id\": 8,\n  \"lastName\": \"Nunes\"\n}",
+											"raw": "{\n  \"address\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"none5_\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam964\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
 											"options": {
 												"raw": {
 													"headerFamily": "json",
@@ -1323,7 +1414,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"address\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"incf\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam_0c\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
+													"raw": "{\n  \"address\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"none5_\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam964\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -1353,7 +1444,7 @@
 												}
 											],
 											"cookie": [],
-											"body": "{\n  \"address\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"incf\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam_0c\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}"
+											"body": "{\n  \"address\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"none5_\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam964\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}"
 										},
 										{
 											"name": "No Content",
@@ -1371,7 +1462,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"address\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"incf\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam_0c\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
+													"raw": "{\n  \"address\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"none5_\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam964\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -1419,7 +1510,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"address\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"incf\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam_0c\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
+													"raw": "{\n  \"address\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"none5_\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam964\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -1467,7 +1558,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"address\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"incf\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam_0c\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
+													"raw": "{\n  \"address\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"none5_\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam964\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -1515,7 +1606,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"address\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"incf\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam_0c\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
+													"raw": "{\n  \"address\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"none5_\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam964\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -1563,7 +1654,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"address\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"incf\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam_0c\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
+													"raw": "{\n  \"address\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"none5_\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam964\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -1612,13 +1703,12 @@
 											},
 											{
 												"key": "Authorization",
-												"value": "Bearer {{accessToken}}",
-												"type": "text"
+												"value": "Bearer {{accessToken}}"
 											}
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"address\": \"Los Angeles - California - USA\",\n  \"firstName\": \"Carrie\",\n  \"gender\": \"Fisher\",\n  \"lastName\": \"Female\"\n}",
+											"raw": "{\n  \"address\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"none5_\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam964\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
 											"options": {
 												"raw": {
 													"headerFamily": "json",
@@ -1656,7 +1746,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"address\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"incf\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam_0c\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
+													"raw": "{\n  \"address\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"none5_\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam964\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -1686,7 +1776,7 @@
 												}
 											],
 											"cookie": [],
-											"body": "{\n  \"address\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"incf\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam_0c\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}"
+											"body": "{\n  \"address\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"none5_\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam964\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}"
 										},
 										{
 											"name": "Bad Request",
@@ -1704,7 +1794,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"address\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"incf\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam_0c\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
+													"raw": "{\n  \"address\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"none5_\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam964\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -1752,7 +1842,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"address\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"incf\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam_0c\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
+													"raw": "{\n  \"address\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"none5_\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam964\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -1800,7 +1890,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"address\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"incf\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam_0c\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
+													"raw": "{\n  \"address\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"none5_\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam964\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -1858,12 +1948,11 @@
 													},
 													{
 														"key": "Authorization",
-														"value": "Bearer {{accessToken}}",
-														"type": "text"
+														"value": "Bearer {{accessToken}}"
 													}
 												],
 												"url": {
-													"raw": "{{baseUrl}}/api/book/v1/2",
+													"raw": "{{baseUrl}}/api/book/v1/1",
 													"host": [
 														"{{baseUrl}}"
 													],
@@ -1871,7 +1960,7 @@
 														"api",
 														"book",
 														"v1",
-														"2"
+														"1"
 													]
 												},
 												"description": "Finds a Book"
@@ -1915,7 +2004,7 @@
 														}
 													],
 													"cookie": [],
-													"body": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"do_9\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}"
+													"body": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"minim_f\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}"
 												},
 												{
 													"name": "No Content",
@@ -2130,8 +2219,7 @@
 													},
 													{
 														"key": "Authorization",
-														"value": "Bearer {{accessToken}}",
-														"type": "text"
+														"value": "Bearer {{accessToken}}"
 													}
 												],
 												"url": {
@@ -2371,12 +2459,11 @@
 											},
 											{
 												"key": "Authorization",
-												"value": "Bearer {{accessToken}}",
-												"type": "text"
+												"value": "Bearer {{accessToken}}"
 											}
 										],
 										"url": {
-											"raw": "{{baseUrl}}/api/book/v1",
+											"raw": "{{baseUrl}}/api/book/v1?page=0&size=12&direction=asc",
 											"host": [
 												"{{baseUrl}}"
 											],
@@ -2384,6 +2471,20 @@
 												"api",
 												"book",
 												"v1"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "0"
+												},
+												{
+													"key": "size",
+													"value": "12"
+												},
+												{
+													"key": "direction",
+													"value": "asc"
+												}
 											]
 										},
 										"description": "Finds all Books"
@@ -2400,7 +2501,7 @@
 													}
 												],
 												"url": {
-													"raw": "{{baseUrl}}/api/book/v1",
+													"raw": "{{baseUrl}}/api/book/v1?page=0&size=12&direction=asc",
 													"host": [
 														"{{baseUrl}}"
 													],
@@ -2408,6 +2509,20 @@
 														"api",
 														"book",
 														"v1"
+													],
+													"query": [
+														{
+															"key": "page",
+															"value": "0"
+														},
+														{
+															"key": "size",
+															"value": "12"
+														},
+														{
+															"key": "direction",
+															"value": "asc"
+														}
 													]
 												}
 											},
@@ -2421,7 +2536,7 @@
 												}
 											],
 											"cookie": [],
-											"body": "[\n  {\n    \"author\": \"<string>\",\n    \"id\": \"<long>\",\n    \"price\": \"<double>\",\n    \"title\": \"<string>\",\n    \"launchDate\": \"<dateTime>\",\n    \"_links\": {\n      \"quis_a3\": {\n        \"href\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"deprecation\": \"<string>\",\n        \"profile\": \"<string>\",\n        \"name\": \"<string>\",\n        \"templated\": \"<boolean>\"\n      }\n    }\n  },\n  {\n    \"author\": \"<string>\",\n    \"id\": \"<long>\",\n    \"price\": \"<double>\",\n    \"title\": \"<string>\",\n    \"launchDate\": \"<dateTime>\",\n    \"_links\": {\n      \"ut_530\": {\n        \"href\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"deprecation\": \"<string>\",\n        \"profile\": \"<string>\",\n        \"name\": \"<string>\",\n        \"templated\": \"<boolean>\"\n      },\n      \"dolore473\": {\n        \"href\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"deprecation\": \"<string>\",\n        \"profile\": \"<string>\",\n        \"name\": \"<string>\",\n        \"templated\": \"<boolean>\"\n      }\n    }\n  }\n]"
+											"body": "[\n  {\n    \"author\": \"<string>\",\n    \"id\": \"<long>\",\n    \"price\": \"<double>\",\n    \"title\": \"<string>\",\n    \"launchDate\": \"<dateTime>\",\n    \"_links\": {\n      \"amet_f63\": {\n        \"href\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"deprecation\": \"<string>\",\n        \"profile\": \"<string>\",\n        \"name\": \"<string>\",\n        \"templated\": \"<boolean>\"\n      },\n      \"veniam8e\": {\n        \"href\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"deprecation\": \"<string>\",\n        \"profile\": \"<string>\",\n        \"name\": \"<string>\",\n        \"templated\": \"<boolean>\"\n      }\n    }\n  },\n  {\n    \"author\": \"<string>\",\n    \"id\": \"<long>\",\n    \"price\": \"<double>\",\n    \"title\": \"<string>\",\n    \"launchDate\": \"<dateTime>\",\n    \"_links\": {\n      \"voluptate_0e\": {\n        \"href\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"deprecation\": \"<string>\",\n        \"profile\": \"<string>\",\n        \"name\": \"<string>\",\n        \"templated\": \"<boolean>\"\n      },\n      \"pariatura\": {\n        \"href\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"deprecation\": \"<string>\",\n        \"profile\": \"<string>\",\n        \"name\": \"<string>\",\n        \"templated\": \"<boolean>\"\n      }\n    }\n  }\n]"
 										},
 										{
 											"name": "No Content",
@@ -2434,7 +2549,7 @@
 													}
 												],
 												"url": {
-													"raw": "{{baseUrl}}/api/book/v1",
+													"raw": "{{baseUrl}}/api/book/v1?page=0&size=12&direction=asc",
 													"host": [
 														"{{baseUrl}}"
 													],
@@ -2442,6 +2557,20 @@
 														"api",
 														"book",
 														"v1"
+													],
+													"query": [
+														{
+															"key": "page",
+															"value": "0"
+														},
+														{
+															"key": "size",
+															"value": "12"
+														},
+														{
+															"key": "direction",
+															"value": "asc"
+														}
 													]
 												}
 											},
@@ -2468,7 +2597,7 @@
 													}
 												],
 												"url": {
-													"raw": "{{baseUrl}}/api/book/v1",
+													"raw": "{{baseUrl}}/api/book/v1?page=0&size=12&direction=asc",
 													"host": [
 														"{{baseUrl}}"
 													],
@@ -2476,6 +2605,20 @@
 														"api",
 														"book",
 														"v1"
+													],
+													"query": [
+														{
+															"key": "page",
+															"value": "0"
+														},
+														{
+															"key": "size",
+															"value": "12"
+														},
+														{
+															"key": "direction",
+															"value": "asc"
+														}
 													]
 												}
 											},
@@ -2502,7 +2645,7 @@
 													}
 												],
 												"url": {
-													"raw": "{{baseUrl}}/api/book/v1",
+													"raw": "{{baseUrl}}/api/book/v1?page=0&size=12&direction=asc",
 													"host": [
 														"{{baseUrl}}"
 													],
@@ -2510,6 +2653,20 @@
 														"api",
 														"book",
 														"v1"
+													],
+													"query": [
+														{
+															"key": "page",
+															"value": "0"
+														},
+														{
+															"key": "size",
+															"value": "12"
+														},
+														{
+															"key": "direction",
+															"value": "asc"
+														}
 													]
 												}
 											},
@@ -2536,7 +2693,7 @@
 													}
 												],
 												"url": {
-													"raw": "{{baseUrl}}/api/book/v1",
+													"raw": "{{baseUrl}}/api/book/v1?page=0&size=12&direction=asc",
 													"host": [
 														"{{baseUrl}}"
 													],
@@ -2544,6 +2701,20 @@
 														"api",
 														"book",
 														"v1"
+													],
+													"query": [
+														{
+															"key": "page",
+															"value": "0"
+														},
+														{
+															"key": "size",
+															"value": "12"
+														},
+														{
+															"key": "direction",
+															"value": "asc"
+														}
 													]
 												}
 											},
@@ -2570,7 +2741,7 @@
 													}
 												],
 												"url": {
-													"raw": "{{baseUrl}}/api/book/v1",
+													"raw": "{{baseUrl}}/api/book/v1?page=0&size=12&direction=asc",
 													"host": [
 														"{{baseUrl}}"
 													],
@@ -2578,6 +2749,20 @@
 														"api",
 														"book",
 														"v1"
+													],
+													"query": [
+														{
+															"key": "page",
+															"value": "0"
+														},
+														{
+															"key": "size",
+															"value": "12"
+														},
+														{
+															"key": "direction",
+															"value": "asc"
+														}
 													]
 												}
 											},
@@ -2610,13 +2795,12 @@
 											},
 											{
 												"key": "Authorization",
-												"value": "Bearer {{accessToken}}",
-												"type": "text"
+												"value": "Bearer {{accessToken}}"
 											}
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n}",
+											"raw": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"minim_f\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
 											"options": {
 												"raw": {
 													"headerFamily": "json",
@@ -2654,7 +2838,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"do_9\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
+													"raw": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"minim_f\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -2684,7 +2868,7 @@
 												}
 											],
 											"cookie": [],
-											"body": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"do_9\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}"
+											"body": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"minim_f\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}"
 										},
 										{
 											"name": "No Content",
@@ -2702,7 +2886,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"do_9\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
+													"raw": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"minim_f\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -2750,7 +2934,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"do_9\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
+													"raw": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"minim_f\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -2798,7 +2982,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"do_9\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
+													"raw": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"minim_f\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -2846,7 +3030,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"do_9\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
+													"raw": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"minim_f\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -2894,7 +3078,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"do_9\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
+													"raw": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"minim_f\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -2943,13 +3127,12 @@
 											},
 											{
 												"key": "Authorization",
-												"value": "Bearer {{accessToken}}",
-												"type": "text"
+												"value": "Bearer {{accessToken}}"
 											}
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"do_9\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
+											"raw": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"minim_f\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
 											"options": {
 												"raw": {
 													"headerFamily": "json",
@@ -2987,7 +3170,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"do_9\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
+													"raw": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"minim_f\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -3017,7 +3200,7 @@
 												}
 											],
 											"cookie": [],
-											"body": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"do_9\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}"
+											"body": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"minim_f\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}"
 										},
 										{
 											"name": "Bad Request",
@@ -3035,7 +3218,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"do_9\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
+													"raw": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"minim_f\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -3083,7 +3266,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"do_9\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
+													"raw": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"minim_f\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -3131,7 +3314,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"do_9\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
+													"raw": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"minim_f\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -3162,6 +3345,208 @@
 											],
 											"cookie": [],
 											"body": "{}"
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "file",
+					"item": [
+						{
+							"name": "v1",
+							"item": [
+								{
+									"name": "upload-multiple-files",
+									"item": [
+										{
+											"name": "uplaod Multiple Files",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Authorization",
+														"value": "Bearer {{accessToken}}"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "files",
+															"type": "file",
+															"src": [
+																"/C:/Users/edwin/Downloads/Currículo Edwin Lima.pdf",
+																"/C:/Users/edwin/Downloads/CNH (1).pdf"
+															]
+														}
+													]
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/file/v1/upload-multiple-files",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"file",
+														"v1",
+														"upload-multiple-files"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/file/v1/upload-multiple-files?files=<string>",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"file",
+																"v1",
+																"upload-multiple-files"
+															],
+															"query": [
+																{
+																	"key": "files",
+																	"value": "<string>",
+																	"description": "(Required) "
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "[\n  {\n    \"fileDownloadUri\": \"<string>\",\n    \"fileName\": \"<string>\",\n    \"fileSize\": \"<long>\",\n    \"fileType\": \"<string>\"\n  },\n  {\n    \"fileDownloadUri\": \"<string>\",\n    \"fileName\": \"<string>\",\n    \"fileSize\": \"<long>\",\n    \"fileType\": \"<string>\"\n  }\n]"
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "upload-file",
+									"item": [
+										{
+											"name": "uplaod File",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"key": "Authorization",
+														"value": "Bearer {{accessToken}}"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "file",
+															"type": "file",
+															"src": "/C:/Users/edwin/Downloads/CNH (1).pdf"
+														}
+													]
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/file/v1/upload-file",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"file",
+														"v1",
+														"upload-file"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															},
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"file\": \"<string>\"\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/api/file/v1/upload-file",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"file",
+																"v1",
+																"upload-file"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"fileDownloadUri\": \"<string>\",\n  \"fileName\": \"<string>\",\n  \"fileSize\": \"<long>\",\n  \"fileType\": \"<string>\"\n}"
+												}
+											]
 										}
 									]
 								}
