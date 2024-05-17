@@ -4,6 +4,8 @@ import br.com.erudio.config.FileStorageConfig
 import br.com.erudio.exceptions.FileStorageException
 import org.springframework.util.StringUtils
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.core.io.Resource
+import org.springframework.core.io.UrlResource
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import java.nio.file.Files
@@ -40,4 +42,14 @@ class FileStorageService @Autowired constructor(fileStorageConfig: FileStorageCo
         }
     }
 
+    fun loadFileAsResource(fileName:String): Resource {
+        return try {
+            val filePath = fileStorageLocation.resolve(fileName).normalize()
+            val resource: Resource = UrlResource(filePath.toUri())
+            if(resource.exists()) resource
+            else throw FileStorageException("File not found $fileName!")
+        }catch (e: Exception){
+            throw FileStorageException("File not found $fileName!", e)
+        }
+    }
 }

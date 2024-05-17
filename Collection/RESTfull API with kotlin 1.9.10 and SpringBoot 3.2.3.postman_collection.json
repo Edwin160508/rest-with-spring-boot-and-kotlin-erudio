@@ -11,92 +11,61 @@
 			"name": "auth",
 			"item": [
 				{
-					"name": "refresh",
-					"item": [
+					"name": "Authenticates an user and return a token",
+					"event": [
 						{
-							"name": "{username}",
-							"item": [
-								{
-									"name": "Refresh token for authenticated user and returns a token",
-									"request": {
-										"method": "PUT",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "*/*"
-											}
-										],
-										"url": {
-											"raw": "{{baseUrl}}/auth/refresh/:username",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"auth",
-												"refresh",
-												":username"
-											],
-											"variable": [
-												{
-													"key": "username",
-													"value": "<string>",
-													"description": "(Required) "
-												}
-											]
-										}
-									},
-									"response": [
-										{
-											"name": "OK",
-											"originalRequest": {
-												"method": "PUT",
-												"header": [
-													{
-														"key": "Accept",
-														"value": "*/*"
-													}
-												],
-												"url": {
-													"raw": "{{baseUrl}}/auth/refresh/:username",
-													"host": [
-														"{{baseUrl}}"
-													],
-													"path": [
-														"auth",
-														"refresh",
-														":username"
-													],
-													"variable": [
-														{
-															"key": "username"
-														}
-													]
-												}
-											},
-											"status": "OK",
-											"code": 200,
-											"_postman_previewlanguage": "text",
-											"header": [
-												{
-													"key": "Content-Type",
-													"value": "*/*"
-												}
-											],
-											"cookie": [],
-											"body": "{}"
-										}
-									]
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(responseCode.code >= 200 && responseCode.code <= 299 ){\r",
+									"\tvar jsonData = JSON.parse(responseBody);\r",
+									"\t\r",
+									"\tpostman.setEnvironmentVariable(\"accessToken\", jsonData.accessToken);\r",
+									"    postman.setEnvironmentVariable(\"refreshToken\", jsonData.refreshToken);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"{{username}}\",\n  \"password\": \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
 								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/signin",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"signin"
 							]
 						}
-					]
-				},
-				{
-					"name": "signin",
-					"item": [
+					},
+					"response": [
 						{
-							"name": "Authenticates an user and return a token",
-							"request": {
+							"name": "OK",
+							"originalRequest": {
 								"method": "POST",
 								"header": [
 									{
@@ -110,7 +79,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"username\": \"{{username}}\",\n  \"password\": \"<string>\"\n}",
+									"raw": "{\n  \"username\": \"<string>\",\n  \"password\": \"<string>\"\n}",
 									"options": {
 										"raw": {
 											"headerFamily": "json",
@@ -129,55 +98,88 @@
 									]
 								}
 							},
-							"response": [
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
 								{
-									"name": "OK",
-									"originalRequest": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Content-Type",
-												"value": "application/json"
-											},
-											{
-												"key": "Accept",
-												"value": "*/*"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n  \"username\": \"<string>\",\n  \"password\": \"<string>\"\n}",
-											"options": {
-												"raw": {
-													"headerFamily": "json",
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{baseUrl}}/auth/signin",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"auth",
-												"signin"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "*/*"
-										}
-									],
-									"cookie": [],
-									"body": "{}"
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{}"
+						}
+					]
+				},
+				{
+					"name": "Refresh token for authenticated user and returns a token",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/auth/refresh/:username",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"refresh",
+								":username"
+							],
+							"variable": [
+								{
+									"key": "username",
+									"value": "<string>",
+									"description": "(Required) "
 								}
 							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/auth/refresh/:username",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"refresh",
+										":username"
+									],
+									"variable": [
+										{
+											"key": "username"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{}"
 						}
 					]
 				}
@@ -192,838 +194,6 @@
 						{
 							"name": "v1",
 							"item": [
-								{
-									"name": "{id}",
-									"item": [
-										{
-											"name": "Finds a Person",
-											"request": {
-												"method": "GET",
-												"header": [
-													{
-														"key": "Accept",
-														"value": "application/json"
-													},
-													{
-														"key": "Authorization",
-														"value": "Bearer {{accessToken}}"
-													}
-												],
-												"url": {
-													"raw": "{{baseUrl}}/api/person/v1/1",
-													"host": [
-														"{{baseUrl}}"
-													],
-													"path": [
-														"api",
-														"person",
-														"v1",
-														"1"
-													]
-												},
-												"description": "Finds a Person"
-											},
-											"response": [
-												{
-													"name": "Success",
-													"originalRequest": {
-														"method": "GET",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/person/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"person",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "OK",
-													"code": 200,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{\n  \"address\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"none5_\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam964\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}"
-												},
-												{
-													"name": "No Content",
-													"originalRequest": {
-														"method": "GET",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/person/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"person",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "No Content",
-													"code": 204,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												},
-												{
-													"name": "Bad Request",
-													"originalRequest": {
-														"method": "GET",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/person/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"person",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "Bad Request",
-													"code": 400,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												},
-												{
-													"name": "Unauthorized",
-													"originalRequest": {
-														"method": "GET",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/person/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"person",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "Unauthorized",
-													"code": 401,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												},
-												{
-													"name": "Not Found",
-													"originalRequest": {
-														"method": "GET",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/person/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"person",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "Not Found",
-													"code": 404,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												},
-												{
-													"name": "Internal Error",
-													"originalRequest": {
-														"method": "GET",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/person/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"person",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "Internal Server Error",
-													"code": 500,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												}
-											]
-										},
-										{
-											"name": "Delete a person",
-											"request": {
-												"method": "DELETE",
-												"header": [
-													{
-														"key": "Accept",
-														"value": "application/json"
-													},
-													{
-														"key": "Authorization",
-														"value": "Bearer {{accessToken}}"
-													}
-												],
-												"url": {
-													"raw": "{{baseUrl}}/api/person/v1/:id",
-													"host": [
-														"{{baseUrl}}"
-													],
-													"path": [
-														"api",
-														"person",
-														"v1",
-														":id"
-													],
-													"variable": [
-														{
-															"key": "id",
-															"value": "<long>",
-															"description": "(Required) "
-														}
-													]
-												},
-												"description": "Delete a person"
-											},
-											"response": [
-												{
-													"name": "Success",
-													"originalRequest": {
-														"method": "DELETE",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/person/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"person",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "OK",
-													"code": 200,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{\n  \"address\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"none5_\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam964\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}"
-												},
-												{
-													"name": "No Content",
-													"originalRequest": {
-														"method": "DELETE",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/person/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"person",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "No Content",
-													"code": 204,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												},
-												{
-													"name": "Bad Request",
-													"originalRequest": {
-														"method": "DELETE",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/person/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"person",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "Bad Request",
-													"code": 400,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												},
-												{
-													"name": "Unauthorized",
-													"originalRequest": {
-														"method": "DELETE",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/person/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"person",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "Unauthorized",
-													"code": 401,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												},
-												{
-													"name": "Not Found",
-													"originalRequest": {
-														"method": "DELETE",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/person/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"person",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "Not Found",
-													"code": 404,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												},
-												{
-													"name": "Internal Error",
-													"originalRequest": {
-														"method": "DELETE",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/person/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"person",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "Internal Server Error",
-													"code": 500,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												}
-											]
-										},
-										{
-											"name": "Disable a Person",
-											"request": {
-												"method": "PATCH",
-												"header": [
-													{
-														"key": "Accept",
-														"value": "application/json"
-													},
-													{
-														"key": "Authorization",
-														"value": "Bearer {{accessToken}}"
-													}
-												],
-												"url": {
-													"raw": "{{baseUrl}}/api/person/v1/:id",
-													"host": [
-														"{{baseUrl}}"
-													],
-													"path": [
-														"api",
-														"person",
-														"v1",
-														":id"
-													],
-													"variable": [
-														{
-															"key": "id",
-															"value": "<long>",
-															"description": "(Required) "
-														}
-													]
-												},
-												"description": "Disable a Person"
-											},
-											"response": [
-												{
-													"name": "Success",
-													"originalRequest": {
-														"method": "PATCH",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/person/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"person",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "OK",
-													"code": 200,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{\n  \"address\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"none5_\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam964\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}"
-												},
-												{
-													"name": "No Content",
-													"originalRequest": {
-														"method": "PATCH",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/person/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"person",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "No Content",
-													"code": 204,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												},
-												{
-													"name": "Bad Request",
-													"originalRequest": {
-														"method": "PATCH",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/person/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"person",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "Bad Request",
-													"code": 400,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												},
-												{
-													"name": "Unauthorized",
-													"originalRequest": {
-														"method": "PATCH",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/person/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"person",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "Unauthorized",
-													"code": 401,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												},
-												{
-													"name": "Not Found",
-													"originalRequest": {
-														"method": "PATCH",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/person/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"person",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "Not Found",
-													"code": 404,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												},
-												{
-													"name": "Internal Error",
-													"originalRequest": {
-														"method": "PATCH",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/person/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"person",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "Internal Server Error",
-													"code": 500,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												}
-											]
-										}
-									]
-								},
 								{
 									"name": "Finds all Persons",
 									"request": {
@@ -1923,6 +1093,555 @@
 											"body": "{}"
 										}
 									]
+								},
+								{
+									"name": "Finds a Person",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{accessToken}}"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/person/v1/1",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"person",
+												"v1",
+												"1"
+											]
+										},
+										"description": "Finds a Person"
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/person/v1/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"person",
+														"v1",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"address\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"none5_\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam964\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}"
+										},
+										{
+											"name": "No Content",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/person/v1/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"person",
+														"v1",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "No Content",
+											"code": 204,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Bad Request",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/person/v1/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"person",
+														"v1",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/person/v1/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"person",
+														"v1",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Not Found",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/person/v1/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"person",
+														"v1",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Internal Error",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/person/v1/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"person",
+														"v1",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										}
+									]
+								},
+								{
+									"name": "Delete a person",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{accessToken}}"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/person/v1/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"person",
+												"v1",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										},
+										"description": "Delete a person"
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/person/v1/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"person",
+														"v1",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"address\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"firstName\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"id\": \"<long>\",\n  \"lastName\": \"<string>\",\n  \"_links\": {\n    \"none5_\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    },\n    \"veniam964\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}"
+										},
+										{
+											"name": "No Content",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/person/v1/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"person",
+														"v1",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "No Content",
+											"code": 204,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Bad Request",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/person/v1/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"person",
+														"v1",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/person/v1/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"person",
+														"v1",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Not Found",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/person/v1/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"person",
+														"v1",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Internal Error",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/person/v1/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"person",
+														"v1",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										}
+									]
 								}
 							]
 						}
@@ -1934,520 +1653,6 @@
 						{
 							"name": "v1",
 							"item": [
-								{
-									"name": "{id}",
-									"item": [
-										{
-											"name": "Finds a Book",
-											"request": {
-												"method": "GET",
-												"header": [
-													{
-														"key": "Accept",
-														"value": "application/json"
-													},
-													{
-														"key": "Authorization",
-														"value": "Bearer {{accessToken}}"
-													}
-												],
-												"url": {
-													"raw": "{{baseUrl}}/api/book/v1/1",
-													"host": [
-														"{{baseUrl}}"
-													],
-													"path": [
-														"api",
-														"book",
-														"v1",
-														"1"
-													]
-												},
-												"description": "Finds a Book"
-											},
-											"response": [
-												{
-													"name": "Success",
-													"originalRequest": {
-														"method": "GET",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/book/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"book",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "OK",
-													"code": 200,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"minim_f\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}"
-												},
-												{
-													"name": "No Content",
-													"originalRequest": {
-														"method": "GET",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/book/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"book",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "No Content",
-													"code": 204,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												},
-												{
-													"name": "Bad Request",
-													"originalRequest": {
-														"method": "GET",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/book/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"book",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "Bad Request",
-													"code": 400,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												},
-												{
-													"name": "Unauthorized",
-													"originalRequest": {
-														"method": "GET",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/book/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"book",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "Unauthorized",
-													"code": 401,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												},
-												{
-													"name": "Not Found",
-													"originalRequest": {
-														"method": "GET",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/book/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"book",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "Not Found",
-													"code": 404,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												},
-												{
-													"name": "Internal Error",
-													"originalRequest": {
-														"method": "GET",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/book/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"book",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "Internal Server Error",
-													"code": 500,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												}
-											]
-										},
-										{
-											"name": "Deletes a book",
-											"request": {
-												"method": "DELETE",
-												"header": [
-													{
-														"key": "Accept",
-														"value": "application/json"
-													},
-													{
-														"key": "Authorization",
-														"value": "Bearer {{accessToken}}"
-													}
-												],
-												"url": {
-													"raw": "{{baseUrl}}/api/book/v1/:id",
-													"host": [
-														"{{baseUrl}}"
-													],
-													"path": [
-														"api",
-														"book",
-														"v1",
-														":id"
-													],
-													"variable": [
-														{
-															"key": "id",
-															"value": "<long>",
-															"description": "(Required) "
-														}
-													]
-												},
-												"description": "Deletes a book"
-											},
-											"response": [
-												{
-													"name": "No Content",
-													"originalRequest": {
-														"method": "DELETE",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/book/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"book",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "No Content",
-													"code": 204,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												},
-												{
-													"name": "Bad Request",
-													"originalRequest": {
-														"method": "DELETE",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/book/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"book",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "Bad Request",
-													"code": 400,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												},
-												{
-													"name": "Unauthorized",
-													"originalRequest": {
-														"method": "DELETE",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/book/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"book",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "Unauthorized",
-													"code": 401,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												},
-												{
-													"name": "Not Found",
-													"originalRequest": {
-														"method": "DELETE",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/book/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"book",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "Not Found",
-													"code": 404,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												},
-												{
-													"name": "Internal Error",
-													"originalRequest": {
-														"method": "DELETE",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "application/json"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/book/v1/:id",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"book",
-																"v1",
-																":id"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "Internal Server Error",
-													"code": 500,
-													"_postman_previewlanguage": "json",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "application/json"
-														}
-													],
-													"cookie": [],
-													"body": "{}"
-												}
-											]
-										}
-									]
-								},
 								{
 									"name": "Finds all Books",
 									"request": {
@@ -3347,6 +2552,515 @@
 											"body": "{}"
 										}
 									]
+								},
+								{
+									"name": "Finds a Book",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{accessToken}}"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/book/v1/1",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"book",
+												"v1",
+												"1"
+											]
+										},
+										"description": "Finds a Book"
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/book/v1/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"book",
+														"v1",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"author\": \"<string>\",\n  \"id\": \"<long>\",\n  \"price\": \"<double>\",\n  \"title\": \"<string>\",\n  \"launchDate\": \"<dateTime>\",\n  \"_links\": {\n    \"minim_f\": {\n      \"href\": \"<string>\",\n      \"hreflang\": \"<string>\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deprecation\": \"<string>\",\n      \"profile\": \"<string>\",\n      \"name\": \"<string>\",\n      \"templated\": \"<boolean>\"\n    }\n  }\n}"
+										},
+										{
+											"name": "No Content",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/book/v1/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"book",
+														"v1",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "No Content",
+											"code": 204,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Bad Request",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/book/v1/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"book",
+														"v1",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/book/v1/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"book",
+														"v1",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Not Found",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/book/v1/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"book",
+														"v1",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Internal Error",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/book/v1/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"book",
+														"v1",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										}
+									]
+								},
+								{
+									"name": "Deletes a book",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{accessToken}}"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/book/v1/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"book",
+												"v1",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										},
+										"description": "Deletes a book"
+									},
+									"response": [
+										{
+											"name": "No Content",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/book/v1/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"book",
+														"v1",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "No Content",
+											"code": 204,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Bad Request",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/book/v1/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"book",
+														"v1",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/book/v1/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"book",
+														"v1",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Not Found",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/book/v1/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"book",
+														"v1",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Internal Error",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/book/v1/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"book",
+														"v1",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										}
+									]
 								}
 							]
 						}
@@ -3359,105 +3073,50 @@
 							"name": "v1",
 							"item": [
 								{
-									"name": "upload-multiple-files",
-									"item": [
-										{
-											"name": "uplaod Multiple Files",
-											"request": {
-												"method": "POST",
-												"header": [
-													{
-														"key": "Accept",
-														"value": "application/json"
-													},
-													{
-														"key": "Content-Type",
-														"value": "application/json"
-													},
-													{
-														"key": "Authorization",
-														"value": "Bearer {{accessToken}}"
-													}
-												],
-												"body": {
-													"mode": "formdata",
-													"formdata": [
-														{
-															"key": "files",
-															"type": "file",
-															"src": [
-																"/C:/Users/edwin/Downloads/Currículo Edwin Lima.pdf",
-																"/C:/Users/edwin/Downloads/CNH (1).pdf"
-															]
-														}
-													]
-												},
-												"url": {
-													"raw": "{{baseUrl}}/api/file/v1/upload-multiple-files",
-													"host": [
-														"{{baseUrl}}"
-													],
-													"path": [
-														"api",
-														"file",
-														"v1",
-														"upload-multiple-files"
-													]
-												}
+									"name": "uplaod File",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
 											},
-											"response": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{accessToken}}"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
 												{
-													"name": "OK",
-													"originalRequest": {
-														"method": "POST",
-														"header": [
-															{
-																"key": "Accept",
-																"value": "*/*"
-															}
-														],
-														"url": {
-															"raw": "{{baseUrl}}/api/file/v1/upload-multiple-files?files=<string>",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"file",
-																"v1",
-																"upload-multiple-files"
-															],
-															"query": [
-																{
-																	"key": "files",
-																	"value": "<string>",
-																	"description": "(Required) "
-																}
-															]
-														}
-													},
-													"status": "OK",
-													"code": 200,
-													"_postman_previewlanguage": "text",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "*/*"
-														}
-													],
-													"cookie": [],
-													"body": "[\n  {\n    \"fileDownloadUri\": \"<string>\",\n    \"fileName\": \"<string>\",\n    \"fileSize\": \"<long>\",\n    \"fileType\": \"<string>\"\n  },\n  {\n    \"fileDownloadUri\": \"<string>\",\n    \"fileName\": \"<string>\",\n    \"fileSize\": \"<long>\",\n    \"fileType\": \"<string>\"\n  }\n]"
+													"key": "file",
+													"type": "file",
+													"src": "/C:/Users/edwin/Downloads/CNH (1).pdf"
 												}
 											]
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/file/v1/upload-file",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"file",
+												"v1",
+												"upload-file"
+											]
 										}
-									]
-								},
-								{
-									"name": "upload-file",
-									"item": [
+									},
+									"response": [
 										{
-											"name": "uplaod File",
-											"request": {
+											"name": "OK",
+											"originalRequest": {
 												"method": "POST",
 												"header": [
 													{
@@ -3466,22 +3125,18 @@
 													},
 													{
 														"key": "Accept",
-														"value": "application/json"
-													},
-													{
-														"key": "Authorization",
-														"value": "Bearer {{accessToken}}"
+														"value": "*/*"
 													}
 												],
 												"body": {
-													"mode": "formdata",
-													"formdata": [
-														{
-															"key": "file",
-															"type": "file",
-															"src": "/C:/Users/edwin/Downloads/CNH (1).pdf"
+													"mode": "raw",
+													"raw": "{\n  \"file\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
 														}
-													]
+													}
 												},
 												"url": {
 													"raw": "{{baseUrl}}/api/file/v1/upload-file",
@@ -3496,57 +3151,101 @@
 													]
 												}
 											},
-											"response": [
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
 												{
-													"name": "OK",
-													"originalRequest": {
-														"method": "POST",
-														"header": [
-															{
-																"key": "Content-Type",
-																"value": "application/json"
-															},
-															{
-																"key": "Accept",
-																"value": "*/*"
-															}
-														],
-														"body": {
-															"mode": "raw",
-															"raw": "{\n  \"file\": \"<string>\"\n}",
-															"options": {
-																"raw": {
-																	"headerFamily": "json",
-																	"language": "json"
-																}
-															}
-														},
-														"url": {
-															"raw": "{{baseUrl}}/api/file/v1/upload-file",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"api",
-																"file",
-																"v1",
-																"upload-file"
-															]
-														}
-													},
-													"status": "OK",
-													"code": 200,
-													"_postman_previewlanguage": "text",
-													"header": [
-														{
-															"key": "Content-Type",
-															"value": "*/*"
-														}
-													],
-													"cookie": [],
-													"body": "{\n  \"fileDownloadUri\": \"<string>\",\n  \"fileName\": \"<string>\",\n  \"fileSize\": \"<long>\",\n  \"fileType\": \"<string>\"\n}"
+													"key": "Content-Type",
+													"value": "*/*"
 												}
+											],
+											"cookie": [],
+											"body": "{\n  \"fileDownloadUri\": \"<string>\",\n  \"fileName\": \"<string>\",\n  \"fileSize\": \"<long>\",\n  \"fileType\": \"<string>\"\n}"
+										}
+									]
+								},
+								{
+									"name": "download File",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{accessToken}}"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/file/v1/download-file/CNH (1).pdf",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"file",
+												"v1",
+												"download-file",
+												"CNH (1).pdf"
 											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"file\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/file/v1/upload-file",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"file",
+														"v1",
+														"upload-file"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"fileDownloadUri\": \"<string>\",\n  \"fileName\": \"<string>\",\n  \"fileSize\": \"<long>\",\n  \"fileType\": \"<string>\"\n}"
 										}
 									]
 								}
