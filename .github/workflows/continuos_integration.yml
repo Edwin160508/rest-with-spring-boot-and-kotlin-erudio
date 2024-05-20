@@ -1,0 +1,37 @@
+name: Continuous Integrations With Github Actions
+
+on:
+  push:
+    branches: 
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USER_NAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}        
+    - name: Setup Java JDK
+      uses: actions/setup-java@v2
+      with: 
+        java-version: '21'
+        distribution: 'adopt'
+        cache: maven
+    
+    - name: Build Application Action Jar
+      working-directory: ./rest-with-spring-boot-and-kotlin-erudio/rest-with-spring-boot-and-kotlin-erudio
+      run: mvn clean package
+
+    - name: Docker Compose Build
+      working-directory: ./rest-with-spring-boot-and-kotlin-erudio
+      run: docker compose build
+
+    - name: Push to Docker Hub Container registry      
+      run: |
+        docker tag ${{ secrets.DOCKER_USER_NAME }}/rest-with-spring-boot-erudio:latest ${{ secrets.DOCKER_USER_NAME }}/rest-with-spring-boot-erudio:${{github.run_id}}
+        docker push ${{ secrets.DOCKER_USER_NAME }}/rest-with-spring-boot-erudio:${{github.run_id}}
+        docker push ${{ secrets.DOCKER_USER_NAME }}/rest-with-spring-boot-erudio:latest
