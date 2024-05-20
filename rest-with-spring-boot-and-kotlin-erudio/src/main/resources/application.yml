@@ -1,7 +1,7 @@
 cors:
   originPatterns: http://localhost:3000, http://localhost:8080
 file:
-  upload-dir: /Users/edwin/Ambiente Estudo/Java/Projetos/UploadDir
+  upload-dir: /home/runner/work/rest-with-spring-boot-and-kotlin-erudio/UploadDir
 security:
   jwt:
     token:
